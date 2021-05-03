@@ -1,0 +1,23 @@
+.Layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__header {
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex-grow: 1;
+  }
+
+  &__section {
+    padding: 64px 0;
+  }
+
+  &__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+}

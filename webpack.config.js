@@ -28,6 +28,12 @@ module.exports = {
         open: true,
         watchContentBase: true,
     },
+    resolve: {
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@scripts': path.resolve(__dirname, 'src/scripts'),
+        },
+    },
     plugins: [
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
