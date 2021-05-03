@@ -1,0 +1,11 @@
+.SearchResults {
+  &__sorting {
+    margin-bottom: 24px;
+  }
+
+  &__listItem {
+    &:not(:last-child) {
+      border-bottom: 1px solid black;
+    }
+  }
+}

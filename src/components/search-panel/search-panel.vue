@@ -5,6 +5,7 @@
         v-model="query"
         placeholder="Никнейм пользователя"
         maxlength="39"
+        @keypress.enter="changeQuery"
     >
 
     <button
@@ -46,23 +47,26 @@
       ...mapActions([VUEX_ACTIONS.SEARCH_USERS_BY_NAME]),
 
       changeQuery() {
+        if (this.isLoading) {
+          return;
+        }
+
         this[VUEX_MUTATIONS.SET_SEARCH_QUERY](this.query);
 
         this.searchUsers();
       },
 
       searchUsers() {
+        if (this.isLoading) {
+          return;
+        }
+
         this.isLoading = true;
 
-        this[VUEX_ACTIONS.SEARCH_USERS_BY_NAME]({
-          q: this.searchQuery,
-          sort: 'repositories',
-          order: this[VUEX_GETTERS.REPOS_SORT_DIRECTION],
-          per_page: 30,
-        })
-        .finally(() => {
-          this.isLoading = false
-        });
+        this[VUEX_ACTIONS.SEARCH_USERS_BY_NAME]()
+          .finally(() => {
+            this.isLoading = false
+          });
       },
     },
     watch: {

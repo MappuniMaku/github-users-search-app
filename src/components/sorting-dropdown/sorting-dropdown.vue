@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+  import { mapGetters, mapMutations } from 'vuex';
   import { SORT_DIRECTIONS, VUEX_GETTERS, VUEX_MUTATIONS } from '@scripts/constants';
 
   export default {
