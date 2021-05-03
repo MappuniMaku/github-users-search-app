@@ -7,7 +7,7 @@ export function initApp(containerSelector) {
     const el = document.querySelector(containerSelector);
 
     if (el === null) {
-        return;
+        return console.error('Контейнер с указанным селектором не найден');
     }
 
     new Vue({

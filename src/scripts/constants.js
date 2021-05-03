@@ -1,5 +1,7 @@
 export const VUEX_MUTATIONS = {
-    SET_USERS: 'setUsers',
+    SET_SEARCH_RESULTS: 'setSearchResults',
+    SET_SEARCH_QUERY: 'setSearchQuery',
+    SET_REPOS_SORT_DIRECTION: 'setReposSortDirection',
 };
 
 export const VUEX_ACTIONS = {
@@ -9,9 +11,15 @@ export const VUEX_ACTIONS = {
 export const VUEX_GETTERS = {
     USERS_COUNT: 'usersCount',
     GET_USER_BY_ID: 'getUserById',
+    REPOS_SORT_DIRECTION: 'reposSortDirection',
 };
 
 export const ROUTES = {
     USER: 'user',
     SEARCH: 'search',
+};
+
+export const SORT_DIRECTIONS = {
+    ASC: 'asc',
+    DESC: 'desc',
 };

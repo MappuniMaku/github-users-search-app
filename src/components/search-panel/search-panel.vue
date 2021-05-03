@@ -3,54 +3,71 @@
     <input
         type="text"
         v-model="query"
-        placeholder="User name"
+        placeholder="Никнейм пользователя"
         maxlength="39"
     >
 
     <button
         type="button"
-        @click="getUsers"
+        @click="changeQuery"
         :disabled="isQueryEmpty || isLoading"
     >
-      Get users
+      Найти
     </button>
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-  import { VUEX_ACTIONS, VUEX_GETTERS } from '@scripts/constants';
+  import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
+  import { VUEX_ACTIONS, VUEX_GETTERS, VUEX_MUTATIONS } from '@scripts/constants';
 
   export default {
     data() {
       return {
         query: '',
         isLoading: false,
-      }
+      };
     },
     computed: {
-      ...mapGetters([VUEX_GETTERS.USERS_COUNT]),
+      ...mapState(['searchQuery']),
+
+      ...mapGetters([VUEX_GETTERS.REPOS_SORT_DIRECTION]),
 
       isQueryEmpty() {
         return this.query === '';
       },
     },
+    beforeMount() {
+      this.query = this.searchQuery;
+    },
     methods: {
+      ...mapMutations([VUEX_MUTATIONS.SET_SEARCH_QUERY]),
+
       ...mapActions([VUEX_ACTIONS.SEARCH_USERS_BY_NAME]),
 
-      getUsers() {
-        if (this.query === '') return;
+      changeQuery() {
+        this[VUEX_MUTATIONS.SET_SEARCH_QUERY](this.query);
+
+        this.searchUsers();
+      },
+
+      searchUsers() {
         this.isLoading = true;
 
         this[VUEX_ACTIONS.SEARCH_USERS_BY_NAME]({
-          q: this.query,
+          q: this.searchQuery,
           sort: 'repositories',
-          order: 'desc',
+          order: this[VUEX_GETTERS.REPOS_SORT_DIRECTION],
           per_page: 30,
         })
         .finally(() => {
           this.isLoading = false
         });
+      },
+    },
+    watch: {
+      [VUEX_GETTERS.REPOS_SORT_DIRECTION]() {
+        this.searchUsers();
       },
     },
   };

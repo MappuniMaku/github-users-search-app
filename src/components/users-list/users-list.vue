@@ -1,5 +1,5 @@
 <template>
-  <ul class="UsersList" v-if="users.length > 0">
+  <ul class="UsersList">
     <li
         class="UsersList__item"
         v-for="user in users"
