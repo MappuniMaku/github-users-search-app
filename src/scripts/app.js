@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import { store } from "@scripts/store";
+import { store } from '@scripts/store';
+import { router } from '@scripts/router';
 import App from '@components/app/app.vue';
 
 export function initApp(containerSelector) {
@@ -12,6 +13,7 @@ export function initApp(containerSelector) {
     new Vue({
         el,
         store,
+        router,
         render: h => h(App),
     });
 }

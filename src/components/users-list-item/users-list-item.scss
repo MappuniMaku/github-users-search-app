@@ -1,0 +1,17 @@
+.UsersListItem {
+  &__link {
+    display: block;
+    padding: 16px;
+    background-color: white;
+    color: darkblue;
+
+    transition-property: color, background-color;
+    transition: 0.25s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: orange;
+      background-color: rgba(black, 0.1);
+    }
+  }
+}

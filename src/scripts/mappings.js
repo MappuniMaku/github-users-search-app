@@ -1,6 +1,6 @@
 export const mapUser = (data) => ({
     id: data.id,
-    login: data.login,
+    name: data.login,
     avatarUrl: data.avatar_url,
     profileUrl: data.html_url,
     reposUrl: data.repos_url,

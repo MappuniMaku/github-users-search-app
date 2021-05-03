@@ -8,4 +8,10 @@ export const VUEX_ACTIONS = {
 
 export const VUEX_GETTERS = {
     USERS_COUNT: 'usersCount',
+    GET_USER_BY_ID: 'getUserById',
+};
+
+export const ROUTES = {
+    USER: 'user',
+    SEARCH: 'search',
 };

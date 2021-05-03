@@ -1,15 +1,26 @@
 <template>
   <ul class="UsersList" v-if="users.length > 0">
-    <li v-for="user in users" :key="user.id">
-      <span v-text="user.login"></span>
+    <li
+        class="UsersList__item"
+        v-for="user in users"
+        :key="user.id"
+    >
+      <users-list-item
+        :id="user.id"
+        :name="user.name"
+      ></users-list-item>
     </li>
   </ul>
 </template>
 
 <script>
   import { mapState } from 'vuex';
+  import UsersListItem from '@components/users-list-item/users-list-item.vue';
 
   export default {
+    components: {
+      UsersListItem,
+    },
     computed: {
       ...mapState(['users']),
     },
