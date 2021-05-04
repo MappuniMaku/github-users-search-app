@@ -74,7 +74,6 @@ export const store = new Vuex.Store({
             })
                 .then(mapGetUsersByNameResponse)
                 .then(result => {
-                    console.log(result);
                     commit(VUEX_MUTATIONS.SET_SEARCH_RESULTS, result);
                 })
                 .catch(e => {
@@ -96,7 +95,6 @@ export const store = new Vuex.Store({
             })
                 .then(mapGetUsersByNameResponse)
                 .then((result) => {
-                    console.log(result);
                     commit(VUEX_MUTATIONS.ADD_USERS, result);
                 })
                 .catch(e => {
