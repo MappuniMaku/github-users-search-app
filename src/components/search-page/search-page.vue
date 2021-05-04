@@ -4,11 +4,15 @@
       <search-panel/>
     </header>
 
-    <search-results v-if="totalUsersCount > 0" />
+    <div class="SearchPage__main" v-show="!isQueryInProgress">
+      <search-results v-if="totalUsersCount > 0" />
 
-    <span v-if="isQueryMade && totalUsersCount === 0">
-      По вашему запросу ничего не найдено
-    </span>
+      <span v-if="isQueryMade && totalUsersCount === 0">
+        По вашему запросу ничего не найдено
+      </span>
+    </div>
+
+    <loading-spinner v-show="isQueryInProgress" />
   </div>
 </template>
 
@@ -17,11 +21,13 @@
   import { VUEX_ACTIONS, VUEX_GETTERS } from '@scripts/constants';
   import SearchPanel from '@components/search-panel/search-panel.vue';
   import SearchResults from '@components/search-results/search-results.vue';
+  import LoadingSpinner from '@components/loading-spinner/loading-spinner.vue';
 
   export default {
     components: {
       SearchPanel,
       SearchResults,
+      LoadingSpinner,
     },
     computed: {
       ...mapState(['totalUsersCount']),

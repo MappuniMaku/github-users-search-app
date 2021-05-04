@@ -16,6 +16,8 @@
         ></results-list-item>
       </li>
     </ul>
+
+    <loading-spinner v-show="isLoading" />
   </div>
 </template>
 
@@ -24,6 +26,7 @@
   import { VUEX_GETTERS, VUEX_ACTIONS } from '@scripts/constants';
   import SortingDropdown from '@components/sorting-dropdown/sorting-dropdown.vue';
   import ResultsListItem from '@components/results-list-item/results-list-item.vue';
+  import LoadingSpinner from '@components/loading-spinner/loading-spinner.vue';
 
   export default {
     data() {
@@ -35,6 +38,7 @@
     components: {
       SortingDropdown,
       ResultsListItem,
+      LoadingSpinner,
     },
     computed: {
       ...mapState(['users', 'totalUsersCount']),

@@ -92,7 +92,7 @@ export const store = new Vuex.Store({
                 sort: state.sorting.mode,
                 order: state.sorting.direction,
                 per_page: USERS_PER_PAGE,
-                page: state.currentPage + 1,
+                page: state.query.currentPage + 1,
             })
                 .then(mapGetUsersByNameResponse)
                 .then((result) => {
