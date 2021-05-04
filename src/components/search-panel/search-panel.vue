@@ -13,7 +13,7 @@
         class="SearchPanel__button Button"
         type="button"
         @click="changeQuery"
-        :disabled="isQueryEmpty || isQueryInProgress"
+        :disabled="isInputDisabled"
     >
       Найти
     </button>
@@ -34,8 +34,12 @@
     computed: {
       ...mapGetters([VUEX_GETTERS.SEARCH_QUERY, VUEX_GETTERS.IS_QUERY_IN_PROGRESS]),
 
-      isQueryEmpty() {
-        return this.query === '';
+      isInputDisabled() {
+        return (
+            this.isQueryInProgress
+            || this.query === ''
+            || this.query === this.searchQuery
+        );
       },
     },
     beforeMount() {
@@ -45,7 +49,7 @@
       ...mapMutations([VUEX_MUTATIONS.SET_SEARCH_QUERY]),
 
       changeQuery() {
-        if (this.isQueryInProgress) {
+        if (this.isInputDisabled) {
           return;
         }
 
