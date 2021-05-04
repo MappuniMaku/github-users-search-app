@@ -28,7 +28,6 @@
     data() {
       return {
         query: '',
-        isLoading: false,
       };
     },
     computed: {
