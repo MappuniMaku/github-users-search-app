@@ -4,8 +4,7 @@ import VuexPersistence from 'vuex-persist';
 import { apiGetUsersByName } from '@scripts/api-methods';
 import {
     VUEX_MUTATIONS,
-    VUEX_ACTIONS,
-    VUEX_GETTERS,
+    SORT_MODES,
     SORT_DIRECTIONS,
     MESSAGES,
 } from '@scripts/constants';
@@ -24,47 +23,52 @@ export const store = new Vuex.Store({
     state: {
         users: [],
         totalUsersCount: 0,
-        searchQuery: '',
-        isQueryMade: false,
-        lastQueryTime: null,
-        currentPage: 1,
+        query: {
+            text: '',
+            isLoading: false,
+            lastRequestTime: null,
+            currentPage: 1,
+        },
         sorting: {
-            repos: {
-                direction: SORT_DIRECTIONS.DESC,
-            },
+            mode: SORT_MODES.REPOS,
+            direction: SORT_DIRECTIONS.DESC,
         },
     },
     mutations: {
-        [VUEX_MUTATIONS.SET_SEARCH_RESULTS](state, result) {
+        setSearchResults(state, result) {
             state.users = result.items;
             state.totalUsersCount = result.totalCount;
-            state.isQueryMade = true;
-            state.lastQueryTime = new Date().getTime();
-            state.currentPage = 1;
+            state.query.lastRequestTime = new Date().getTime();
+            state.query.currentPage = 1;
         },
 
-        [VUEX_MUTATIONS.SET_SEARCH_QUERY](state, query) {
-            state.searchQuery = query;
+        setSearchQuery(state, query) {
+            state.query.text = query;
         },
 
-        [VUEX_MUTATIONS.SET_REPOS_SORT_DIRECTION](state, direction) {
-            state.sorting.repos.direction = direction;
+        setReposSortDirection(state, direction) {
+            state.sorting.direction = direction;
         },
 
-        [VUEX_MUTATIONS.ADD_USERS](state, result) {
+        addUsers(state, result) {
             state.users.push(...result.items);
             state.totalUsersCount = result.totalCount;
-            state.isQueryMade = true;
-            state.lastQueryTime = new Date().getTime();
-            state.currentPage += 1;
+            state.query.lastRequestTime = new Date().getTime();
+            state.query.currentPage += 1;
+        },
+
+        setQueryInProgress(state, value) {
+            state.query.isLoading = value;
         },
     },
     actions: {
-        [VUEX_ACTIONS.SEARCH_USERS_BY_NAME]({ commit, state }) {
+        searchUsersByName({ commit, state }) {
+            commit(VUEX_MUTATIONS.SET_QUERY_IN_PROGRESS, true);
+
             return apiGetUsersByName({
-                q: state.searchQuery,
-                sort: 'repositories',
-                order: state.sorting.repos.direction,
+                q: state.query.text,
+                sort: state.sorting.mode,
+                order: state.sorting.direction,
                 per_page: USERS_PER_PAGE,
                 page: 1,
             })
@@ -76,14 +80,17 @@ export const store = new Vuex.Store({
                 .catch(e => {
                     console.warn(e.message);
                     alert(MESSAGES.API_ERROR);
+                })
+                .finally(() => {
+                    commit(VUEX_MUTATIONS.SET_QUERY_IN_PROGRESS, false);
                 });
         },
 
-        [VUEX_ACTIONS.GET_NEXT_USERS_PAGE]({ commit, state }) {
+        getNextUsersPage({ commit, state }) {
             return apiGetUsersByName({
-                q: state.searchQuery,
-                sort: 'repositories',
-                order: state.sorting.repos.direction,
+                q: state.query.text,
+                sort: state.sorting.mode,
+                order: state.sorting.direction,
                 per_page: USERS_PER_PAGE,
                 page: state.currentPage + 1,
             })
@@ -99,12 +106,20 @@ export const store = new Vuex.Store({
         },
     },
     getters: {
-        [VUEX_GETTERS.USERS_COUNT]: state => state.users.length,
+        usersCount: state => state.users.length,
 
-        [VUEX_GETTERS.GET_USER_BY_ID]: state => id => {
+        getUserById: state => id => {
             return state.users.find(user => user.id === Number(id));
         },
 
-        [VUEX_GETTERS.REPOS_SORT_DIRECTION]: state => state.sorting.repos.direction,
+        reposSortDirection: state => state.sorting.direction,
+
+        isQueryMade: state => state.query.lastRequestTime !== null,
+
+        searchQuery: state => state.query.text,
+
+        lastRequestTime: state => state.query.lastRequestTime,
+
+        isQueryInProgress: state => state.query.isLoading,
     },
 });

@@ -13,7 +13,8 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters, mapActions } from 'vuex';
+  import { VUEX_ACTIONS, VUEX_GETTERS } from '@scripts/constants';
   import SearchPanel from '@components/search-panel/search-panel.vue';
   import SearchResults from '@components/search-results/search-results.vue';
 
@@ -23,7 +24,34 @@
       SearchResults,
     },
     computed: {
-      ...mapState(['totalUsersCount', 'isQueryMade']),
+      ...mapState(['totalUsersCount']),
+
+      ...mapGetters([
+        VUEX_GETTERS.SEARCH_QUERY,
+        VUEX_GETTERS.IS_QUERY_MADE,
+        VUEX_GETTERS.REPOS_SORT_DIRECTION,
+        VUEX_GETTERS.IS_QUERY_IN_PROGRESS,
+      ]),
+    },
+    methods: {
+      ...mapActions([VUEX_ACTIONS.SEARCH_USERS_BY_NAME]),
+
+      searchUsers() {
+        if (this.isQueryInProgress) {
+          return;
+        }
+
+        this.searchUsersByName();
+      },
+    },
+    watch: {
+      searchQuery() {
+        this.searchUsers();
+      },
+
+      reposSortDirection() {
+        this.searchUsers();
+      },
     },
   }
 </script>

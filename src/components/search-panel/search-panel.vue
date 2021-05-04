@@ -11,7 +11,7 @@
     <button
         type="button"
         @click="changeQuery"
-        :disabled="isQueryEmpty || isLoading"
+        :disabled="isQueryEmpty || isQueryInProgress"
     >
       Найти
     </button>
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
-  import { VUEX_ACTIONS, VUEX_GETTERS, VUEX_MUTATIONS } from '@scripts/constants';
+  import { mapGetters, mapMutations } from 'vuex';
+  import { VUEX_GETTERS, VUEX_MUTATIONS } from '@scripts/constants';
 
   export default {
     data() {
@@ -30,9 +30,7 @@
       };
     },
     computed: {
-      ...mapState(['searchQuery']),
-
-      ...mapGetters([VUEX_GETTERS.REPOS_SORT_DIRECTION]),
+      ...mapGetters([VUEX_GETTERS.SEARCH_QUERY, VUEX_GETTERS.IS_QUERY_IN_PROGRESS]),
 
       isQueryEmpty() {
         return this.query === '';
@@ -44,34 +42,12 @@
     methods: {
       ...mapMutations([VUEX_MUTATIONS.SET_SEARCH_QUERY]),
 
-      ...mapActions([VUEX_ACTIONS.SEARCH_USERS_BY_NAME]),
-
       changeQuery() {
-        if (this.isLoading) {
+        if (this.isQueryInProgress) {
           return;
         }
 
-        this[VUEX_MUTATIONS.SET_SEARCH_QUERY](this.query);
-
-        this.searchUsers();
-      },
-
-      searchUsers() {
-        if (this.isLoading) {
-          return;
-        }
-
-        this.isLoading = true;
-
-        this[VUEX_ACTIONS.SEARCH_USERS_BY_NAME]()
-          .finally(() => {
-            this.isLoading = false
-          });
-      },
-    },
-    watch: {
-      [VUEX_GETTERS.REPOS_SORT_DIRECTION]() {
-        this.searchUsers();
+        this.setSearchQuery(this.query);
       },
     },
   };

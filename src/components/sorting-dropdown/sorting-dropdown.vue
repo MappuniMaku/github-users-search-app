@@ -8,7 +8,8 @@
       <select
         class="SortingDropdown__select"
         v-model="sortDirection"
-        @change="changeSortDirection"
+        @change="setReposSortDirection(sortDirection)"
+        :disabled="isQueryInProgress"
       >
         <option :value="SORT_DIRECTIONS.ASC">По возрастанию</option>
         <option :value="SORT_DIRECTIONS.DESC">По убыванию</option>
@@ -30,17 +31,13 @@
       };
     },
     computed: {
-      ...mapGetters([VUEX_GETTERS.REPOS_SORT_DIRECTION]),
+      ...mapGetters([VUEX_GETTERS.REPOS_SORT_DIRECTION, VUEX_GETTERS.IS_QUERY_IN_PROGRESS]),
     },
     beforeMount() {
-      this.sortDirection = this[VUEX_GETTERS.REPOS_SORT_DIRECTION];
+      this.sortDirection = this.reposSortDirection;
     },
     methods: {
       ...mapMutations([VUEX_MUTATIONS.SET_REPOS_SORT_DIRECTION]),
-
-      changeSortDirection() {
-        this[VUEX_MUTATIONS.SET_REPOS_SORT_DIRECTION](this.sortDirection);
-      },
     },
   };
 </script>

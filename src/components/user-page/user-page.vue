@@ -44,7 +44,7 @@
       ...mapGetters([VUEX_GETTERS.GET_USER_BY_ID]),
 
       user() {
-        return this[VUEX_GETTERS.GET_USER_BY_ID](this.$route.params.id);
+        return this.getUserById(this.$route.params.id);
       },
     },
   };

@@ -37,9 +37,9 @@
       ResultsListItem,
     },
     computed: {
-      ...mapState(['users', 'totalUsersCount', 'lastQueryTime']),
+      ...mapState(['users', 'totalUsersCount']),
 
-      ...mapGetters([VUEX_GETTERS.USERS_COUNT]),
+      ...mapGetters([VUEX_GETTERS.USERS_COUNT, VUEX_GETTERS.LAST_REQUEST_TIME]),
     },
     mounted() {
       this.setScrollObserver();
@@ -48,7 +48,7 @@
       ...mapActions([VUEX_ACTIONS.GET_NEXT_USERS_PAGE]),
 
       setScrollObserver() {
-        if (this[VUEX_GETTERS.USERS_COUNT] >= this.totalUsersCount) {
+        if (this.usersCount >= this.totalUsersCount) {
           return;
         }
 
@@ -69,7 +69,7 @@
           this.isLoading = true;
           this.scrollObserver.unobserve(target);
 
-          this[VUEX_ACTIONS.GET_NEXT_USERS_PAGE]()
+          this.getNextUsersPage()
             .finally(() => {
               this.isLoading = false;
             });
@@ -81,7 +81,7 @@
       },
     },
     watch: {
-      lastQueryTime() {
+      lastRequestTime() {
         this.$nextTick()
           .then(this.setScrollObserver);
       },
