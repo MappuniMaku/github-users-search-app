@@ -11,6 +11,9 @@
   color: white;
   cursor: pointer;
 
+  transition-property: color, background-color, opacity;
+  transition: 0.25s ease-in-out;
+
   &:hover,
   &:focus {
     background-color: lighten($color-green, 5%);
@@ -20,6 +23,8 @@
     background-color: darken($color-green, 5%);
   }
 
-  transition-property: color, background-color;
-  transition: 0.25s ease-in-out;
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
 }
