@@ -1,14 +1,16 @@
 <template>
   <div class="SearchPanel">
     <input
+        class="SearchPanel__input Input"
         type="text"
         v-model="query"
-        placeholder="Никнейм пользователя"
+        placeholder="Введите никнейм"
         maxlength="39"
         @keypress.enter="changeQuery"
     >
 
     <button
+        class="SearchPanel__button Button"
         type="button"
         @click="changeQuery"
         :disabled="isQueryEmpty || isQueryInProgress"

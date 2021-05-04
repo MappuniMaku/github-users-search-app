@@ -1,6 +1,10 @@
 <template>
   <div class="SearchPage">
     <header class="SearchPage__header">
+      <h1 class="SearchPage__title">
+        Поиск пользователей GitHub по никнейму
+      </h1>
+
       <search-panel/>
     </header>
 

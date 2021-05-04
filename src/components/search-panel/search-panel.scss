@@ -1,3 +1,17 @@
 .SearchPanel {
+  display: flex;
 
+  @media (max-width: $breakpoint-xsmall) {
+    flex-direction: column;
+  }
+
+  &__input {
+    margin-right: 16px;
+
+    @media (max-width: $breakpoint-xsmall) {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 12px;
+    }
+  }
 }

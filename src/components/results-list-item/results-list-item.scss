@@ -3,15 +3,15 @@
     display: block;
     padding: 16px;
     background-color: white;
-    color: darkblue;
 
-    transition-property: color, background-color;
-    transition: 0.25s ease-in-out;
+    @media (max-width: $breakpoint-xsmall) {
+      padding: 12px;
+      font-size: 14px;
+    }
 
     &:hover,
     &:focus {
-      color: orange;
-      background-color: rgba(black, 0.1);
+      background-color: $color-light-gray;
     }
   }
 }

@@ -1,0 +1,25 @@
+.UserPage {
+  &__backLink {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  &__contentWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    margin-bottom: 8px;
+  }
+
+  &__image {
+    width: 200px;
+    height: 200px;
+    background-color: $color-light-gray;
+  }
+
+  &__profileLink {
+    margin-top: 12px;
+  }
+}

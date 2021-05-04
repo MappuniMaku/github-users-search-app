@@ -2,4 +2,19 @@
   &__header {
     margin-bottom: 40px;
   }
+
+  &__title {
+    margin-bottom: 32px;
+    font-size: 28px;
+
+    @media (max-width: $breakpoint-small) {
+      margin-bottom: 28px;
+      font-size: 26px;
+    }
+
+    @media (max-width: $breakpoint-xsmall) {
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+  }
 }

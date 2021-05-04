@@ -2,11 +2,11 @@
   <div class="SortingDropdown">
     <label class="SortingDropdown__label">
       <span class="SortingDropdown__labelText">
-        Сортировка по количеству репозиториев
+        Сортировка по количеству репозиториев:
       </span>
 
       <select
-        class="SortingDropdown__select"
+        class="SortingDropdown__select Select"
         v-model="sortDirection"
         @change="setReposSortDirection(sortDirection)"
         :disabled="isQueryInProgress"

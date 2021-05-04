@@ -19,5 +19,13 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 40px;
+
+    @media (max-width: $breakpoint-small) {
+      padding: 0 24px;
+    }
+
+    @media (max-width: $breakpoint-xsmall) {
+      padding: 0 16px;
+    }
   }
 }

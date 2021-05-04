@@ -1,6 +1,12 @@
 // Global
+@import "styles/variables";
+@import "styles/media";
 @import "styles/mics";
 @import "styles/layout";
+
+// Elements
+@import "styles/elements/buttons";
+@import "styles/elements/form-elements";
 
 // Components
 @import "components/app/app";
@@ -9,3 +15,5 @@
 @import "components/search-page/search-page";
 @import "components/search-panel/search-panel";
 @import "components/search-results/search-results";
+@import "components/sorting-dropdown/sorting-dropdown";
+@import "components/user-page/user-page";

@@ -4,25 +4,29 @@
       :to="{
         name: ROUTES.SEARCH,
       }"
+      class="UserPage__backLink"
     >
       Назад
     </router-link>
 
-    <template v-if="user !== undefined">
-      <h1>{{ user.name }}</h1>
+    <div v-if="user !== undefined" class="UserPage__contentWrapper">
+      <h1 class="UserPage__name">{{ user.name }}</h1>
 
-      <img :src="user.avatarUrl" :alt="user.name">
+      <img
+          class="UserPage__image"
+          :src="user.avatarUrl"
+          :alt="user.name"
+      >
 
       <a
+          class="UserPage__profileLink"
           :href="user.profileUrl"
           target="_blank"
           rel="noopener norefferer"
       >
         Профиль
       </a>
-
-      <a :href="user.reposUrl">Репозитории</a>
-    </template>
+    </div>
 
     <span v-else>
       Пользователь не найден, проверьте введенный id

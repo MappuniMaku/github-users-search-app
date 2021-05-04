@@ -1,0 +1,40 @@
+.Input {
+  box-sizing: border-box;
+  min-width: 250px;
+  height: $form-elements-height;
+  padding: 0 8px;
+  outline: none;
+  font-size: 16px;
+  border: 1px $color-gray solid;
+  border-radius: $form-elements-border-radius;
+  color: $color-black;
+
+  transition: border-color 0.25s ease-in-out;
+
+  &:hover,
+  &:focus {
+    border-color: $color-black;
+  }
+
+  &::placeholder {
+    color: $color-gray;
+  }
+}
+
+.Select {
+  min-width: 200px;
+  height: $form-elements-height;
+  padding: 0 8px;
+  font-size: 16px;
+  border: 1px $color-gray solid;
+  border-radius: $form-elements-border-radius;
+  color: $color-black;
+  cursor: pointer;
+
+  transition: border-color 0.25s ease-in-out;
+
+  &:hover,
+  &:focus {
+    border-color: $color-black;
+  }
+}
