@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
         },
 
         addUsers(state, result) {
-            state.users.push(...result.items);
+            state.users = [...state.users, ...result.items];
             state.totalUsersCount = result.totalCount;
             state.query.lastRequestTime = new Date().getTime();
             state.query.currentPage += 1;
