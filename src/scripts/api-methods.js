@@ -1,3 +1,11 @@
+import fetch from 'node-fetch';
+
+export const fetchOptions = {
+    headers: {
+        Accept: 'application/vnd.github.v3+json',
+    },
+};
+
 export async function apiGetUsersByName(payload = {}) {
     const queryParameters = [];
 
@@ -11,11 +19,7 @@ export async function apiGetUsersByName(payload = {}) {
         url += `?${queryParameters.join('&')}`;
     }
 
-    const response = await fetch(url, {
-        headers: {
-            Accept: 'application/vnd.github.v3+json',
-        },
-    });
+    const response = await fetch(url, fetchOptions);
 
     return response.json();
 }

@@ -39,3 +39,7 @@ export const MESSAGES = {
     API_ERROR: 'Сервер не отвечает, повторите попытку позже',
     ERROR_USER_NOT_FOUND: 'Пользователь не найден, проверьте введенный id',
 };
+
+export const DEFAULTS = {
+    USERS_PER_PAGE: 30,
+};

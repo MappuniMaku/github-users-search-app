@@ -7,18 +7,17 @@ import {
     SORT_MODES,
     SORT_DIRECTIONS,
     MESSAGES,
+    DEFAULTS,
 } from '@scripts/constants';
 import { mapGetUsersByNameResponse } from '@scripts/mappings';
 
 Vue.use(Vuex);
 
-const USERS_PER_PAGE = 30;
-
 const vuexLocal = new VuexPersistence({
     key: 'store',
 });
 
-export const store = new Vuex.Store({
+export const storeConfig = {
     plugins: [vuexLocal.plugin],
     state: {
         users: [],
@@ -69,7 +68,7 @@ export const store = new Vuex.Store({
                 q: state.query.text,
                 sort: state.sorting.mode,
                 order: state.sorting.direction,
-                per_page: USERS_PER_PAGE,
+                per_page: DEFAULTS.USERS_PER_PAGE,
                 page: 1,
             })
                 .then(mapGetUsersByNameResponse)
@@ -90,7 +89,7 @@ export const store = new Vuex.Store({
                 q: state.query.text,
                 sort: state.sorting.mode,
                 order: state.sorting.direction,
-                per_page: USERS_PER_PAGE,
+                per_page: DEFAULTS.USERS_PER_PAGE,
                 page: state.query.currentPage + 1,
             })
                 .then(mapGetUsersByNameResponse)
@@ -120,4 +119,6 @@ export const store = new Vuex.Store({
 
         isQueryInProgress: state => state.query.isLoading,
     },
-});
+};
+
+export const store = new Vuex.Store(storeConfig);
