@@ -29,19 +29,20 @@
     </div>
 
     <span v-else>
-      Пользователь не найден, проверьте введенный id
+      {{ MESSAGES.ERROR_USER_NOT_FOUND }}
     </span>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-  import { VUEX_GETTERS, ROUTES } from '@scripts/constants';
+  import { VUEX_GETTERS, ROUTES, MESSAGES } from '@scripts/constants';
 
   export default {
     data() {
       return {
         ROUTES,
+        MESSAGES,
       };
     },
     computed: {
