@@ -6,20 +6,14 @@ export const fetchOptions = {
     },
 };
 
-export async function apiGetUsersByName(payload = {}) {
-    const queryParameters = [];
+export function apiGetUsersByName(payload = {}) {
+    let url = new URL('https://api.github.com/search/users');
 
-    Object.keys(payload).forEach(key => {
-        queryParameters.push(`${key}=${payload[key]}`);
-    });
+    if (Object.keys(payload).length > 0) {
+        const searchParams = new URLSearchParams(payload);
 
-    let url = 'https://api.github.com/search/users';
-
-    if (queryParameters.length > 0) {
-        url += `?${queryParameters.join('&')}`;
+        url.search = searchParams.toString();
     }
 
-    const response = await fetch(url, fetchOptions);
-
-    return response.json();
+    return fetch(url, fetchOptions).then(response => response.json());
 }

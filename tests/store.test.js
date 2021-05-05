@@ -25,9 +25,9 @@ describe('store.js', () => {
         store.commit('setSearchQuery', query);
         await store.dispatch('searchUsersByName');
         expect(fetch).toHaveBeenCalledTimes(1);
-        const expectedUrl = `https://api.github.com/search/users?q=${query}`
+        const expectedUrl = new URL(`https://api.github.com/search/users?q=${query}`
             + `&sort=${store.state.sorting.mode}&order=${store.state.sorting.direction}`
-            + `&per_page=${DEFAULTS.USERS_PER_PAGE}&page=${store.state.query.currentPage}`;
+            + `&per_page=${DEFAULTS.USERS_PER_PAGE}&page=${store.state.query.currentPage}`);
         expect(fetch).toHaveBeenCalledWith(expectedUrl, fetchOptions);
     });
 
